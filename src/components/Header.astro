@@ -1,0 +1,137 @@
+---
+import SearchBar from './SearchBar';
+import papers from '../data/papers.json';
+
+// Get unique grades
+const grades = [...new Set(papers.map(p => p.grade))].sort((a, b) => a - b);
+---
+
+<header class="sticky top-0 z-50 bg-white shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-3 group">
+        <img src="/images/logo.png" alt="Nenamaga Logo" class="w-12 h-12 object-contain" />
+        <div>
+          <span class="text-xl font-bold text-slate-900 group-hover:text-blue-800 transition-colors block">
+            Nenamaga
+          </span>
+          <span class="text-xs text-slate-600 block">Your Path to Excellence</span>
+        </div>
+      </a>
+
+      <!-- Search Bar - Desktop -->
+      <div class="hidden lg:block flex-1 max-w-md mx-8">
+        <SearchBar papers={papers} client:load />
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="/" class="text-slate-700 hover:text-blue-800 font-medium transition-colors">
+          Home
+        </a>
+        
+        <!-- Grades Dropdown -->
+        <div class="relative group">
+          <button class="text-slate-700 hover:text-blue-800 font-medium transition-colors flex items-center gap-1">
+            Grades
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+            {grades.map(grade => (
+              <a 
+                href={`/grade/${grade}`} 
+                class="block px-4 py-2 text-slate-700 hover:bg-slate-50 hover:text-blue-800 transition-colors first:rounded-t-lg last:rounded-b-lg"
+              >
+                Grade {grade}
+              </a>
+            ))}
+          </div>
+        </div>
+        
+        <a href="/about" class="text-slate-700 hover:text-blue-800 font-medium transition-colors">
+          About
+        </a>
+        <a href="/contact" class="text-slate-700 hover:text-blue-800 font-medium transition-colors">
+          Contact
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        id="mobile-menu-button"
+        class="md:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Search Bar -->
+    <div class="lg:hidden pb-4">
+      <SearchBar papers={papers} client:load />
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-menu" class="hidden md:hidden pb-4 space-y-2">
+      <a href="/" class="block px-4 py-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors">
+        Home
+      </a>
+      
+      <!-- Mobile Grades Submenu -->
+      <div>
+        <button 
+          id="mobile-grades-toggle"
+          class="w-full flex justify-between items-center px-4 py-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+        >
+          <span>Grades</span>
+          <svg id="mobile-grades-icon" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div id="mobile-grades-menu" class="hidden pl-4 space-y-1 mt-1">
+          {grades.map(grade => (
+            <a 
+              href={`/grade/${grade}`} 
+              class="block px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors text-sm"
+            >
+              Grade {grade}
+            </a>
+          ))}
+        </div>
+      </div>
+      
+      <a href="/about" class="block px-4 py-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors">
+        About
+      </a>
+      <a href="/contact" class="block px-4 py-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors">
+        Contact
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    
+    button?.addEventListener('click', () => {
+      menu?.classList.toggle('hidden');
+    });
+
+    // Mobile grades submenu toggle
+    const gradesToggle = document.getElementById('mobile-grades-toggle');
+    const gradesMenu = document.getElementById('mobile-grades-menu');
+    const gradesIcon = document.getElementById('mobile-grades-icon');
+    
+    gradesToggle?.addEventListener('click', () => {
+      gradesMenu?.classList.toggle('hidden');
+      gradesIcon?.classList.toggle('rotate-180');
+    });
+  });
+</script>

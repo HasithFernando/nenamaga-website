@@ -1,0 +1,244 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PaperCard from '../components/PaperCard';
+import papers from '../data/papers.json';
+
+// Get unique grades and sort
+const grades = [...new Set(papers.map(p => p.grade))].sort((a, b) => a - b);
+
+// Get recent papers (latest 6)
+const recentPapers = [...papers].sort((a, b) => 
+  new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()
+).slice(0, 6);
+
+// Count papers by grade
+const papersByGrade = grades.map(grade => ({
+  grade,
+  count: papers.filter(p => p.grade === grade).length
+}));
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Nenamaga",
+  "description": "Your Path to Excellence - Free access to organized Sri Lankan school past question papers for Grades 6-13",
+  "url": "https://nenamaga-website.pages.dev"
+};
+---
+
+<BaseLayout 
+  title="Nenamaga - Your Path to Excellence | Free Past Papers"
+  description="Access free Sri Lankan school past question papers for Grades 6-13. Organized by subject, medium (Sinhala, Tamil, English), and year. Perfect for students, parents, and teachers."
+  structuredData={structuredData}
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-blue-900 via-blue-800 to-teal-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          Free Sri Lankan Past Papers
+        </h1>
+        <p class="text-xl md:text-2xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed">
+          Access 1000+ organized past question papers for Grades 6-13 in Sinhala, Tamil & English — completely free
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a 
+            href="#grades" 
+            class="inline-flex items-center justify-center px-10 py-5 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 hover:scale-105 transition-all duration-200 shadow-2xl hover:shadow-3xl text-lg touch-manipulation"
+          >
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+            Browse by Grade
+          </a>
+          <a 
+            href="#recent" 
+            class="inline-flex items-center justify-center px-8 py-4 text-white font-medium rounded-xl hover:bg-white/10 transition-all duration-200 text-base touch-manipulation border-2 border-white/30 hover:border-white/50"
+          >
+            Recent Papers
+          </a>
+        </div>
+        <p class="mt-8 text-sm text-blue-200">
+          🇱🇰 Trusted by Sri Lankan students, parents & teachers nationwide
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-12 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="w-16 h-16 mx-auto mb-3 bg-blue-100 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <div class="text-4xl font-bold text-blue-800 mb-2">{papers.length}+</div>
+          <div class="text-slate-600 font-medium">Past Papers</div>
+        </div>
+        <div>
+          <div class="w-16 h-16 mx-auto mb-3 bg-teal-100 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <div class="text-4xl font-bold text-teal-700 mb-2">{grades.length}</div>
+          <div class="text-slate-600 font-medium">Grades Covered</div>
+        </div>
+        <div>
+          <div class="w-16 h-16 mx-auto mb-3 bg-amber-100 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+          </div>
+          <div class="text-4xl font-bold text-amber-500 mb-2">3</div>
+          <div class="text-slate-600 font-medium">Mediums</div>
+        </div>
+        <div>
+          <div class="w-16 h-16 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div class="text-4xl font-bold text-green-600 mb-2">100%</div>
+          <div class="text-slate-600 font-medium">Free Access</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Browse by Grade Section -->
+  <section id="grades" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          Browse by Grade
+        </h2>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+          Select your grade to explore available past papers organized by subject and medium.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 md:gap-6">
+        {papersByGrade.map(({ grade, count }) => (
+          <a
+            href={`/grade/${grade}`}
+            class="group bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 p-6 border-2 border-slate-200 hover:border-blue-600 hover:-translate-y-2 cursor-pointer touch-manipulation"
+          >
+            <div class="text-center">
+              <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-800 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-2xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-300 shadow-lg">
+                {grade}
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-800 transition-colors">
+                Grade {grade}
+              </h3>
+              <p class="text-slate-600 text-sm">
+                {count} {count === 1 ? 'Paper' : 'Papers'}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Papers Section -->
+  <section id="recent" class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          Recently Added Papers
+        </h2>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+          Check out the latest past papers added to our collection.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {recentPapers.map((paper) => (
+          <PaperCard
+            client:load
+            id={paper.id}
+            title={paper.title}
+            grade={paper.grade}
+            subject={paper.subject}
+            medium={paper.medium}
+            year={paper.year}
+            term={paper.term}
+            examType={paper.examType}
+            pdfUrl={paper.pdfUrl}
+            addedDate={paper.addedDate}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          Why Choose Nenamaga?
+        </h2>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+          Sri Lanka's most trusted platform for exam preparation
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center p-6">
+          <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Well Organized</h3>
+          <p class="text-slate-600 text-sm">Papers organized by grade, subject, medium, and year for easy access.</p>
+        </div>
+
+        <div class="text-center p-6">
+          <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Syllabus Aligned</h3>
+          <p class="text-slate-600 text-sm">All papers match current Sri Lankan education syllabus and exam patterns.</p>
+        </div>
+
+        <div class="text-center p-6">
+          <div class="w-16 h-16 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Lightning Fast</h3>
+          <p class="text-slate-600 text-sm">Optimized for speed with instant page loads and quick downloads.</p>
+        </div>
+
+        <div class="text-center p-6">
+          <div class="w-16 h-16 mx-auto mb-4 bg-amber-100 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">100% Free</h3>
+          <p class="text-slate-600 text-sm">No hidden charges, no subscriptions. All papers are completely free.</p>
+        </div>
+      </div>
+
+      <!-- SEO Content -->
+      <div class="mt-12 max-w-4xl mx-auto text-center">
+        <p class="text-slate-600 leading-relaxed">
+          Nenamaga provides comprehensive access to Sri Lankan past papers for O/L and A/L students. Our platform includes 
+          term test papers, model papers, and provincial exam papers in Sinhala medium (සිංහල), Tamil medium (தமிழ்), and 
+          English medium. Students preparing for Grade 5 scholarship, Ordinary Level, and Advanced Level examinations can 
+          find organized past question papers with answers to improve exam performance and achieve academic excellence.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

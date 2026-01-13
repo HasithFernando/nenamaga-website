@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const currentDate = new Date().toLocaleDateString('en-US', { 
+  year: 'numeric', 
+  month: 'long', 
+  day: 'numeric' 
+});
+---
+
+<BaseLayout
+  title="Privacy Policy - Nenamaga"
+  description="Read our privacy policy to understand how we handle your data and protect your privacy on Nenamaga."
+  canonical="/privacy-policy"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Breadcrumbs items={[{ label: 'Privacy Policy', href: '/privacy-policy' }]} />
+
+    <article class="prose prose-lg max-w-none bg-white rounded-xl shadow-lg p-8">
+      <h1 class="text-4xl font-bold text-slate-900 mb-4">Privacy Policy</h1>
+      <p class="text-slate-600 mb-8">Last updated: {currentDate}</p>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Introduction</h2>
+        <p class="text-slate-700 leading-relaxed">
+          Nenamaga ("we", "our", or "us") is committed to protecting your privacy. 
+          This Privacy Policy explains how we collect, use, and safeguard information when you visit 
+          our website.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Information We Collect</h2>
+        
+        <h3 class="text-xl font-semibold text-slate-900 mb-3">Automatically Collected Information</h3>
+        <p class="text-slate-700 mb-4">
+          When you visit our website, we automatically collect certain information about your device, including:
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-slate-700 ml-4 mb-6">
+          <li>Browser type and version</li>
+          <li>Operating system</li>
+          <li>IP address</li>
+          <li>Pages visited and time spent on pages</li>
+          <li>Referring website addresses</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-slate-900 mb-3">Cookies and Tracking Technologies</h3>
+        <p class="text-slate-700 mb-4">
+          We use cookies and similar tracking technologies to enhance your browsing experience and 
+          analyze site traffic. You can control cookies through your browser settings.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">How We Use Your Information</h2>
+        <p class="text-slate-700 mb-4">We use the collected information to:</p>
+        <ul class="list-disc list-inside space-y-2 text-slate-700 ml-4">
+          <li>Provide and maintain our website services</li>
+          <li>Improve user experience and website functionality</li>
+          <li>Analyze usage patterns and optimize content</li>
+          <li>Monitor website performance and security</li>
+          <li>Comply with legal obligations</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Third-Party Services</h2>
+        
+        <h3 class="text-xl font-semibold text-slate-900 mb-3">Google AdSense</h3>
+        <p class="text-slate-700 mb-4">
+          We use Google AdSense to display advertisements. Google may use cookies to serve ads based 
+          on your prior visits to our website or other websites. You can opt out of personalized 
+          advertising by visiting <a href="https://www.google.com/settings/ads" class="text-blue-800 hover:underline" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.
+        </p>
+
+        <h3 class="text-xl font-semibold text-slate-900 mb-3">Google Analytics</h3>
+        <p class="text-slate-700 mb-4">
+          We use Google Analytics to understand how visitors use our site. Google Analytics collects 
+          information anonymously and reports website trends without identifying individual visitors.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Data Security</h2>
+        <p class="text-slate-700">
+          We implement appropriate security measures to protect your information. However, no method 
+          of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Children's Privacy</h2>
+        <p class="text-slate-700">
+          Our website is designed for educational purposes and may be used by children. We do not 
+          knowingly collect personal information from children. If you believe we have collected 
+          information from a child, please contact us immediately.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Your Rights</h2>
+        <p class="text-slate-700 mb-4">You have the right to:</p>
+        <ul class="list-disc list-inside space-y-2 text-slate-700 ml-4">
+          <li>Access the information we hold about you</li>
+          <li>Request correction of inaccurate information</li>
+          <li>Request deletion of your information</li>
+          <li>Opt out of marketing communications</li>
+          <li>Disable cookies through your browser settings</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Changes to This Policy</h2>
+        <p class="text-slate-700">
+          We may update this Privacy Policy from time to time. Changes will be posted on this page 
+          with an updated revision date. We encourage you to review this policy periodically.
+        </p>
+      </section>
+
+      <section class="bg-blue-50 rounded-lg p-6 border border-blue-200">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Contact Us</h2>
+        <p class="text-slate-700 mb-4">
+          If you have questions about this Privacy Policy, please contact us at:
+        </p>
+        <p class="text-slate-700">
+          Email: <a href="mailto:nenamagapapers@gmail.com" class="text-blue-800 hover:underline">nenamagapapers@gmail.com</a>
+        </p>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  article a {
+    color: #1e40af;
+  }
+  
+  article a:hover {
+    text-decoration: underline;
+  }
+</style>

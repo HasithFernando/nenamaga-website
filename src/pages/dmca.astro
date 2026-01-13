@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+---
+
+<BaseLayout
+  title="DMCA Policy - Nenamaga"
+  description="Our DMCA policy and copyright infringement reporting procedures for Nenamaga."
+  canonical="/dmca"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Breadcrumbs items={[{ label: 'DMCA Policy', href: '/dmca' }]} />
+
+    <article class="prose prose-lg max-w-none bg-white rounded-xl shadow-lg p-8">
+      <h1 class="text-4xl font-bold text-slate-900 mb-6">DMCA Copyright Policy</h1>
+
+      <div class="bg-blue-50 border-l-4 border-blue-800 p-6 mb-8">
+        <p class="text-blue-900 font-semibold">
+          Nenamaga respects the intellectual property rights of others and expects 
+          users to do the same.
+        </p>
+      </div>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Copyright Policy</h2>
+        <p class="text-slate-700 leading-relaxed">
+          It is our policy to respond to clear notices of alleged copyright infringement that comply 
+          with the Digital Millennium Copyright Act (DMCA). If you believe that your copyrighted work 
+          has been used on our website in a way that constitutes copyright infringement, please 
+          provide us with the following information:
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Filing a DMCA Notice</h2>
+        <p class="text-slate-700 mb-4">
+          To file a copyright infringement notification with us, you must provide a written 
+          communication that includes the following:
+        </p>
+        
+        <div class="space-y-4">
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <h3 class="font-bold text-slate-900 mb-2">1. Identification of Copyrighted Work</h3>
+            <p class="text-slate-700 text-sm">
+              A description of the copyrighted work that you claim has been infringed, or if multiple 
+              works are covered by a single notification, a representative list of such works.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <h3 class="font-bold text-slate-900 mb-2">2. Identification of Infringing Material</h3>
+            <p class="text-slate-700 text-sm">
+              Identification of the material that is claimed to be infringing, including the URL or 
+              specific location where the material appears on our website.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <h3 class="font-bold text-slate-900 mb-2">3. Contact Information</h3>
+            <p class="text-slate-700 text-sm">
+              Your name, address, telephone number, and email address.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <h3 class="font-bold text-slate-900 mb-2">4. Statement of Good Faith</h3>
+            <p class="text-slate-700 text-sm">
+              A statement that you have a good faith belief that the use of the material is not 
+              authorized by the copyright owner, its agent, or the law.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <h3 class="font-bold text-slate-900 mb-2">5. Statement of Accuracy</h3>
+            <p class="text-slate-700 text-sm">
+              A statement that the information in the notification is accurate, and under penalty of 
+              perjury, that you are authorized to act on behalf of the copyright owner.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <h3 class="font-bold text-slate-900 mb-2">6. Signature</h3>
+            <p class="text-slate-700 text-sm">
+              A physical or electronic signature of the copyright owner or person authorized to act 
+              on behalf of the owner.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Where to Send DMCA Notices</h2>
+        <div class="bg-gradient-to-r from-blue-50 to-teal-50 p-6 rounded-lg border border-blue-200">
+          <p class="text-slate-700 mb-4 font-semibold">
+            Please send DMCA notices to:
+          </p>
+          <div class="space-y-2 text-slate-700">
+            <p><strong>Email:</strong> <a href="mailto:nenamagapapers@gmail.com" class="text-blue-800 hover:underline">nenamagapapers@gmail.com</a></p>
+            <p><strong>Subject Line:</strong> DMCA Copyright Infringement Notice</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Our Response</h2>
+        <p class="text-slate-700 mb-4">
+          Upon receipt of a valid DMCA notice, we will:
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-slate-700 ml-4">
+          <li>Remove or disable access to the allegedly infringing material</li>
+          <li>Notify the user who posted the material</li>
+          <li>Take reasonable steps to notify the user of the DMCA notice</li>
+          <li>Process valid counter-notifications if received</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Counter-Notification</h2>
+        <p class="text-slate-700 mb-4">
+          If you believe that your material was removed or disabled by mistake or misidentification, 
+          you may file a counter-notification. A counter-notification must include:
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-slate-700 ml-4">
+          <li>Your physical or electronic signature</li>
+          <li>Identification of the material that was removed</li>
+          <li>A statement under penalty of perjury that you have a good faith belief the material was removed by mistake</li>
+          <li>Your name, address, and telephone number</li>
+          <li>A statement that you consent to jurisdiction of the federal court</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Repeat Infringers</h2>
+        <p class="text-slate-700 leading-relaxed">
+          We have a policy of terminating, in appropriate circumstances, the accounts or access of 
+          users who are repeat infringers of intellectual property rights.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">False Claims</h2>
+        <p class="text-slate-700 leading-relaxed">
+          Please note that under Section 512(f) of the DMCA, any person who knowingly materially 
+          misrepresents that material is infringing or was removed by mistake may be subject to 
+          liability.
+        </p>
+      </section>
+
+      <section class="bg-amber-50 rounded-lg p-6 border-l-4 border-amber-500">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Important Notice</h2>
+        <p class="text-slate-700 leading-relaxed">
+          We take copyright infringement seriously. However, we also value educational access. If you 
+          are a copyright holder and believe your work is on our site, we encourage you to contact us 
+          first to discuss the matter before filing a DMCA notice. We are often willing to work with 
+          copyright holders to find mutually beneficial solutions.
+        </p>
+      </section>
+
+      <section class="mt-8 bg-blue-50 rounded-lg p-6 border border-blue-200">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Questions?</h2>
+        <p class="text-slate-700 mb-4">
+          If you have questions about our DMCA policy, please contact us:
+        </p>
+        <p class="text-slate-700">
+          Email: <a href="mailto:nenamagapapers@gmail.com" class="text-blue-800 hover:underline">nenamagapapers@gmail.com</a>
+        </p>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  article a {
+    color: #1e40af;
+  }
+  
+  article a:hover {
+    text-decoration: underline;
+  }
+</style>

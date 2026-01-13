@@ -1,0 +1,56 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  keywords?: string;
+  structuredData?: object;
+}
+
+const { 
+  title, 
+  description, 
+  canonical,
+  ogImage = '/images/logo.png',
+  keywords = 'nenamaga, past papers, sri lanka, education, exam papers, grade papers, sinhala medium, tamil medium, english medium',
+  structuredData 
+} = Astro.props;
+
+const siteUrl = Astro.site || 'https://sri-lanka-past-papers.pages.dev';
+const fullUrl = canonical ? `${siteUrl}${canonical}` : Astro.url.href;
+const ogImageUrl = `${siteUrl}${ogImage}`;
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<link rel="canonical" href={fullUrl} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={fullUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:site_name" content="Nenamaga - Your Path to Excellence" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={fullUrl} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImageUrl} />
+
+<!-- Structured Data -->
+{structuredData && (
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+)}
+
+<!-- Additional SEO -->
+<meta name="robots" content="index, follow" />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="7 days" />
+<meta name="author" content="Nenamaga" />

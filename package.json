@@ -1,0 +1,22 @@
+{
+  "name": "sri-lanka-past-papers-hub",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Free Sri Lankan school past papers for Grades 6-13",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "update-papers": "node scripts/fetch-pdfs.js"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/tailwind": "^6.0.2",
+    "@heroicons/react": "^2.2.0",
+    "astro": "^5.16.7",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^3.4.1"
+  }
+}

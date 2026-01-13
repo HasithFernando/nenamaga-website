@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PaperCard from '../../components/PaperCard';
+import papers from '../../data/papers.json';
+
+export async function getStaticPaths() {
+  const grades = [...new Set(papers.map(p => p.grade))];
+  
+  return grades.map(grade => ({
+    params: { grade: grade.toString() },
+    props: { grade }
+  }));
+}
+
+const { grade } = Astro.props;
+const gradeNumber = typeof grade === 'string' ? parseInt(grade) : grade;
+
+// Filter papers for this grade
+const gradePapers = papers.filter(p => p.grade === gradeNumber);
+
+// Get unique subjects for this grade
+const subjects = [...new Set(gradePapers.map(p => p.subject))].sort();
+
+// Group papers by subject
+const papersBySubject = subjects.map(subject => ({
+  subject,
+  papers: gradePapers.filter(p => p.subject === subject)
+}));
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": `Grade ${gradeNumber} Past Papers`,
+  "description": `Free Grade ${gradeNumber} past papers for all subjects in Sinhala, Tamil, and English mediums.`,
+  "numberOfItems": gradePapers.length
+};
+---
+
+<BaseLayout
+  title={`Grade ${gradeNumber} Past Papers - Nenamaga`}
+  description={`Access free Grade ${gradeNumber} past papers for all subjects. Download PDF question papers in Sinhala, Tamil, and English mediums.`}
+  canonical={`/grade/${gradeNumber}`}
+  structuredData={structuredData}
+  keywords={`grade ${gradeNumber} past papers, grade ${gradeNumber} exam papers, sri lanka grade ${gradeNumber}`}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Breadcrumbs 
+      items={[
+        { label: `Grade ${gradeNumber}`, href: `/grade/${gradeNumber}` }
+      ]}
+    />
+
+    <!-- Header -->
+    <div class="mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+        Grade {gradeNumber} Past Papers
+      </h1>
+      <p class="text-lg text-slate-600 max-w-3xl">
+        Browse and download {gradePapers.length} past papers for Grade {gradeNumber}. 
+        Papers are organized by subject and available in multiple mediums.
+      </p>
+    </div>
+
+    <!-- Subject Navigation -->
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold text-slate-900 mb-6">Browse by Subject</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {subjects.map(subject => {
+          const count = gradePapers.filter(p => p.subject === subject).length;
+          return (
+            <a
+              href={`#${subject.toLowerCase()}`}
+              class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-4 border-2 border-slate-200 hover:border-teal-700"
+            >
+              <div class="text-center">
+                <h3 class="font-bold text-slate-900 mb-1 group-hover:text-teal-700 transition-colors">
+                  {subject}
+                </h3>
+                <p class="text-sm text-slate-600">
+                  {count} {count === 1 ? 'Paper' : 'Papers'}
+                </p>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Papers by Subject -->
+    {papersBySubject.map(({ subject, papers: subjectPapers }) => (
+      <section id={subject.toLowerCase()} class="mb-16">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-3xl font-bold text-slate-900">
+            {subject}
+          </h2>
+          <span class="text-sm text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
+            {subjectPapers.length} {subjectPapers.length === 1 ? 'Paper' : 'Papers'}
+          </span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {subjectPapers.map(paper => (
+            <PaperCard
+              client:load
+              id={paper.id}
+              title={paper.title}
+              grade={paper.grade}
+              subject={paper.subject}
+              medium={paper.medium}
+              year={paper.year}
+              term={paper.term}
+              examType={paper.examType}
+              pdfUrl={paper.pdfUrl}
+              addedDate={paper.addedDate}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
+
+    {gradePapers.length === 0 && (
+      <div class="text-center py-16">
+        <div class="text-6xl mb-4">📚</div>
+        <h3 class="text-2xl font-bold text-slate-900 mb-2">No Papers Yet</h3>
+        <p class="text-slate-600">Papers for Grade {gradeNumber} will be added soon.</p>
+      </div>
+    )}
+  </div>
+</BaseLayout>

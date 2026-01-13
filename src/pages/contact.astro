@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+---
+
+<BaseLayout
+  title="Contact Us - Nenamaga"
+  description="Get in touch with Nenamaga. Send us your questions, suggestions, or feedback."
+  canonical="/contact"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Breadcrumbs items={[{ label: 'Contact', href: '/contact' }]} />
+
+    <article class="prose prose-lg max-w-none">
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Contact Us</h1>
+
+      <div class="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-8 mb-8 border-l-4 border-blue-800">
+        <p class="text-xl text-slate-700 leading-relaxed">
+          We'd love to hear from you! Whether you have questions, suggestions, or want to contribute 
+          to our collection, feel free to reach out.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-900 mb-3">Email Us</h2>
+          <p class="text-slate-700 mb-4">
+            Send us your inquiries and we'll get back to you as soon as possible.
+          </p>
+          <a 
+            href="mailto:nenamagapapers@gmail.com" 
+            class="text-blue-800 hover:text-blue-900 font-semibold"
+          >
+            nenamagapapers@gmail.com
+          </a>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200">
+          <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-900 mb-3">Social Media</h2>
+          <p class="text-slate-700 mb-4">
+            Connect with us on social media for updates and announcements.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-slate-600 hover:text-blue-800 transition-colors">
+              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-slate-600 hover:text-blue-400 transition-colors">
+              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+          <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">How can I contribute past papers?</h3>
+            <p class="text-slate-700">
+              If you have past papers that you'd like to share with the community, please email them to us 
+              at the address above. We'll review and add them to our collection.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Is there a fee to access papers?</h3>
+            <p class="text-slate-700">
+              No! All papers on our website are completely free to access and download. There are no 
+              hidden charges or subscription fees.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Can I request specific papers?</h3>
+            <p class="text-slate-700">
+              Yes! If you're looking for specific papers that aren't available on our site, please 
+              email us with the details and we'll try our best to find and add them.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">How often are new papers added?</h3>
+            <p class="text-slate-700">
+              We regularly update our collection with new past papers. Check back often or follow us 
+              on social media for updates.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-gradient-to-r from-blue-900 to-teal-800 text-white rounded-xl p-8">
+        <h2 class="text-2xl font-bold mb-4">Report an Issue</h2>
+        <p class="text-blue-100 mb-4">
+          Found a broken link or incorrect information? Please let us know so we can fix it promptly.
+        </p>
+        <a 0
+          href="mailto:nenamagapapers@gmail.com?subject=Issue%20Report" 
+          class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+        >
+          Report Issue
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </a>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  article {
+    color: #0f172a;
+  }
+  
+  article h2 {
+    margin-top: 2rem;
+  }
+  
+  article p {
+    margin-bottom: 1rem;
+  }
+</style>

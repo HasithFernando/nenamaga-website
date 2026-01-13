@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import papers from '../../data/papers.json';
+
+export async function getStaticPaths() {
+  return papers.map(paper => ({
+    params: { slug: paper.id },
+    props: { paper }
+  }));
+}
+
+const { paper } = Astro.props;
+
+// Find related papers (same grade and subject)
+const relatedPapers = papers
+  .filter(p => 
+    p.id !== paper.id && 
+    p.grade === paper.grade && 
+    p.subject === paper.subject
+  )
+  .slice(0, 3);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "EducationalResource",
+  "name": paper.title,
+  "description": `${paper.examType} paper for Grade ${paper.grade} ${paper.subject} in ${paper.medium} medium`,
+  "educationalLevel": `Grade ${paper.grade}`,
+  "about": {
+    "@type": "Thing",
+    "name": paper.subject
+  },
+  "inLanguage": paper.medium,
+  "learningResourceType": "Examination Paper",
+  "url": `https://sri-lanka-past-papers.pages.dev/paper/${paper.id}`,
+  "datePublished": paper.addedDate
+};
+---
+
+<BaseLayout
+  title={`${paper.title} - Download Free PDF | Nenamaga`}
+  description={`Download ${paper.title} PDF. Free ${paper.examType} for Grade ${paper.grade} ${paper.subject} in ${paper.medium} medium. Year ${paper.year}, Term ${paper.term}.`}
+  canonical={`/paper/${paper.id}`}
+  structuredData={structuredData}
+  keywords={`${paper.subject} past paper, grade ${paper.grade} ${paper.subject}, ${paper.medium} medium, ${paper.year} paper`}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Breadcrumbs 
+      items={[
+        { label: `Grade ${paper.grade}`, href: `/grade/${paper.grade}` },
+        { label: paper.subject, href: `/grade/${paper.grade}#${paper.subject.toLowerCase()}` },
+        { label: paper.title, href: `/paper/${paper.id}` }
+      ]}
+    />
+
+    <!-- Paper Details Card -->
+    <article class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 mb-8">
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-blue-900 to-teal-800 text-white p-8">
+        <div class="flex flex-wrap gap-3 mb-4">
+          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-white/20 backdrop-blur-sm">
+            Grade {paper.grade}
+          </span>
+          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-white/20 backdrop-blur-sm">
+            {paper.medium}
+          </span>
+          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-white/20 backdrop-blur-sm">
+            {paper.year}
+          </span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">
+          {paper.title}
+        </h1>
+        <p class="text-blue-100 text-lg">
+          {paper.examType}
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="p-8">
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 mb-4">Paper Details</h2>
+            
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-600">Subject</p>
+                <p class="font-semibold text-slate-900">{paper.subject}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-600">Academic Year</p>
+                <p class="font-semibold text-slate-900">{paper.year}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-600">Term</p>
+                <p class="font-semibold text-slate-900">Term {paper.term}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 mb-4">Additional Info</h2>
+            
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-purple-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-600">Medium</p>
+                <p class="font-semibold text-slate-900">{paper.medium}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-600">Exam Type</p>
+                <p class="font-semibold text-slate-900">{paper.examType}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-600">Added Date</p>
+                <p class="font-semibold text-slate-900">{new Date(paper.addedDate).toLocaleDateString()}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Section -->
+        <div class="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 border-2 border-blue-200">
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Download Paper</h3>
+          <p class="text-slate-600 mb-6">
+            Click the button below to view or download this past paper in PDF format. 
+            The paper will open in a new tab.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              href={paper.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-2xl touch-manipulation"
+            >
+              <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download PDF
+            </a>
+            <a
+              href={paper.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 inline-flex items-center justify-center px-6 py-4 text-slate-700 font-medium rounded-xl hover:bg-slate-100 transition-all duration-200 border-2 border-slate-300 hover:border-slate-400 touch-manipulation"
+            >
+              <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              View in Browser
+            </a>
+          </div>
+          <p class="text-xs text-slate-500 mt-4 text-center">
+            📱 Works on all devices | 🚀 Optimized for low bandwidth connections
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Related Papers -->
+    {relatedPapers.length > 0 && (
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Related Papers</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {relatedPapers.map(relatedPaper => (
+            <a
+              href={`/paper/${relatedPaper.id}`}
+              class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-5 border border-slate-200 hover:border-blue-800"
+            >
+              <h3 class="font-bold text-slate-900 group-hover:text-blue-800 transition-colors mb-2 line-clamp-2">
+                {relatedPaper.title}
+              </h3>
+              <div class="space-y-1 text-sm text-slate-600">
+                <p>Year: {relatedPaper.year} | Term {relatedPaper.term}</p>
+                <p class="text-xs">{relatedPaper.medium} Medium</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Back to Grade -->
+    <div class="text-center">
+      <a
+        href={`/grade/${paper.grade}`}
+        class="inline-flex items-center text-blue-800 hover:text-blue-900 font-semibold transition-colors"
+      >
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Grade {paper.grade}
+      </a>
+    </div>
+  </div>
+</BaseLayout>
