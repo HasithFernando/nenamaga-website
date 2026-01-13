@@ -1,6 +1,11 @@
-const { google } = require('googleapis');
-const fs = require('fs');
-const path = require('path');
+import { google } from 'googleapis';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Parse folder path: "Nenamaga/Grade 6/Science/English/2023_Term1_Test.pdf"
 function parseFilePath(folderPath, fileName) {
